@@ -14,6 +14,7 @@ for (const name of ["registry", "resolve"]) {
   await writeFile(path.join(destination, `features/${name}.mjs`), compiled);
 }
 await cp(path.join(repo, "apps/desktop/resources/icons/icon.icns"), path.join(destination, "icon.icns"));
+await cp(path.join(repo, "LICENSE"), path.join(destination, "LICENSE"));
 await writeFile(path.join(destination, "package.json"), JSON.stringify({
   name: "openwork-remote-desktop", productName: "OpenWork Remote", version: "0.1.0",
   description: "OpenWork desktop for a self-hosted workspace", author: "FreedomLovesYou",
@@ -25,7 +26,7 @@ await writeFile(path.join(destination, "package.json"), JSON.stringify({
   build: {
     appId: "com.freedomlovesyou.openwork.remote", productName: "OpenWork Remote",
     artifactName: "OpenWork-Remote-${version}-${arch}.${ext}",
-    files: ["*.mjs", "*.cjs", "connect.*", "features/**", "package.json"],
+    files: ["*.mjs", "*.cjs", "connect.*", "features/**", "package.json", "LICENSE"],
     asar: true, npmRebuild: false,
     mac: { target: ["dmg", "zip"], icon: "icon.icns", identity: null, notarize: false, category: "public.app-category.productivity" },
   },
