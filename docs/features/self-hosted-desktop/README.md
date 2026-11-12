@@ -59,3 +59,5 @@ It follows P2, P3, C1 and C6: one title, one address field, direct connection
 action, and an actionable offline error. The task UI is the existing server UI.
 
 ![Connection window](connection.png)
+
+![Offline recovery](offline.png)

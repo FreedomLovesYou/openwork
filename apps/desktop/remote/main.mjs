@@ -30,6 +30,7 @@ function openSettings() {
   settings = new BrowserWindow({ width: 640, height: 440, title: "Connect to your workspace", webPreferences: {
     preload: path.join(directory, "preload.cjs"), sandbox: true, contextIsolation: true, nodeIntegration: false,
   } });
+  settings.on("closed", () => { settings = null; });
   settings.webContents.setWindowOpenHandler(() => ({ action: "deny" }));
   settings.webContents.on("will-navigate", (event) => event.preventDefault());
   settings.loadURL(setupUrl);
@@ -43,6 +44,7 @@ async function connect() {
       partition: "persist:workspace", sandbox: true, contextIsolation: true, nodeIntegration: false,
       // No native preload or IPC capabilities are ever given to VM content.
     } });
+    window.on("closed", () => { window = null; });
     window.webContents.setWindowOpenHandler(() => ({ action: "deny" }));
     for (const name of ["will-navigate", "will-redirect"]) {
       window.webContents.on(name, (event, url) => {

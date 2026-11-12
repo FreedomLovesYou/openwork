@@ -21,6 +21,14 @@ import {
 const base: FeatureContext = { deployment: "cloud", locks: {}, rollouts: {}, overrides: {} }
 const featureDocs = (feature: FeatureDefinition) => feature.docs
 
+test("remote desktop is self-hosted, opt-in, and can be disabled by its operator", () => {
+  assert.equal(resolveFeature("selfHostedDesktop", base).enabled, false)
+  const context: FeatureContext = { ...base, deployment: "self_hosted" }
+  assert.equal(resolveFeature("selfHostedDesktop", context).enabled, false)
+  assert.equal(resolveFeature("selfHostedDesktop", { ...context, locks: { selfHostedDesktop: true } }).enabled, true)
+  assert.equal(resolveFeature("selfHostedDesktop", { ...context, locks: { selfHostedDesktop: false } }).enabled, false)
+})
+
 test("without stored state, every feature follows its registry default", () => {
   for (const key of FEATURE_KEYS) {
     const resolved = resolveFeature(key, { ...base, deployment: FEATURES[key].deployments[0] })
