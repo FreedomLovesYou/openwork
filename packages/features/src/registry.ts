@@ -104,6 +104,17 @@ function defineFeatures<const T extends Record<string, FeatureDefinition>>(featu
 const everywhere = ["cloud", "self_hosted"] as const
 
 export const FEATURES = defineFeatures({
+  selfHostedDesktop: {
+    label: "Self-hosted desktop",
+    description: "Connect the remote desktop edition to your own OpenWork workspace.",
+    category: "experience",
+    added: "2026-11-12",
+    since: "2026-11",
+    author: "FreedomLovesYou",
+    docs: "docs/features/self-hosted-desktop/README.md",
+    deployments: ["self_hosted"],
+    default: false,
+  },
   webPerMember: {
     label: "OpenWork Web per member",
     description: "Admins choose which members get OpenWork Web from the Members page, and the organization pays for Web only for them. Members without it can't open a Web computer. Off: every member and pending invitation has Web and is billed for it.",

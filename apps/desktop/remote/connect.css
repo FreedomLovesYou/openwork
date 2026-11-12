@@ -1,0 +1,9 @@
+:root { color-scheme: light dark; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 13px; }
+body { min-height: 100vh; margin: 0; background: Canvas; color: CanvasText; }
+main { max-width: 420px; margin: 0 auto; padding-top: 18vh; padding: 24px; }
+h1 { font-size: 20px; font-weight: 600; letter-spacing: -.02em; margin-bottom: 32px; }
+label { display: block; margin-bottom: 8px; }
+input { box-sizing: border-box; width: 100%; padding: 12px; font: inherit; color: inherit; background: Field; border: 1px solid GrayText; border-radius: 6px; }
+button { display: block; margin-left: auto; padding: 10px 20px; font: inherit; cursor: pointer; border-radius: 6px; border: 1px solid GrayText; }
+button:disabled { cursor: wait; }
+#status { min-height: 36px; line-height: 1.5; }

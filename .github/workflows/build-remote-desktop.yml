@@ -1,0 +1,46 @@
+name: Build self-hosted Mac desktop
+on:
+  workflow_dispatch:
+  push:
+    branches: [feat/self-hosted-desktop]
+    paths:
+      - apps/desktop/remote/**
+      - apps/desktop/scripts/prepare-remote-desktop.mjs
+      - apps/desktop/test/remote-desktop.test.mjs
+      - packages/features/src/**
+      - .github/workflows/build-remote-desktop.yml
+permissions:
+  contents: read
+jobs:
+  mac:
+    strategy:
+      fail-fast: false
+      matrix:
+        arch: [arm64, x64]
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.4.0
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24.22.1
+      - name: Test connection policy
+        run: node --test apps/desktop/test/remote-desktop.test.mjs
+      - name: Prepare desktop
+        run: node apps/desktop/scripts/prepare-remote-desktop.mjs "$RUNNER_TEMP/remote-desktop"
+      - name: Install and package
+        working-directory: ${{ runner.temp }}/remote-desktop
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: "false"
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm exec electron-builder --mac --${{ matrix.arch }} --publish never
+      - uses: actions/upload-artifact@v4
+        with:
+          name: OpenWork-Remote-mac-${{ matrix.arch }}
+          path: |
+            ${{ runner.temp }}/remote-desktop/dist/*.dmg
+            ${{ runner.temp }}/remote-desktop/dist/*.zip
+          if-no-files-found: error

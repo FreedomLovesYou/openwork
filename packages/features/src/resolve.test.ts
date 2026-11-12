@@ -23,7 +23,7 @@ const featureDocs = (feature: FeatureDefinition) => feature.docs
 
 test("without stored state, every feature follows its registry default", () => {
   for (const key of FEATURE_KEYS) {
-    const resolved = resolveFeature(key, base)
+    const resolved = resolveFeature(key, { ...base, deployment: FEATURES[key].deployments[0] })
     assert.equal(resolved.enabled, FEATURES[key].default)
     assert.equal(resolved.source, "everyone")
     assert.equal(resolved.overrideApplies, true)

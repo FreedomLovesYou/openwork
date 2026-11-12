@@ -61,6 +61,16 @@
           "type": "object",
           "additionalProperties": false,
           "properties": {
+            "selfHostedDesktop": {
+              "enum": [
+                "",
+                "true",
+                "false",
+                true,
+                false
+              ],
+              "description": "Self-hosted desktop: Connect the remote desktop edition to your own OpenWork workspace. Renders DEN_FEATURE_SELF_HOSTED_DESKTOP."
+            },
             "webPerMember": {
               "enum": [
                 "",

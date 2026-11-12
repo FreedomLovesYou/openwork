@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'self'">
+  <title>Connect to your workspace</title>
+  <link rel="stylesheet" href="connect.css">
+</head>
+<body>
+  <main>
+    <h1>Connect to your workspace</h1>
+    <form>
+      <label for="address">Workspace address</label>
+      <input id="address" name="address" type="url" placeholder="https://workspace.example.com" required autocomplete="url" autofocus>
+      <p id="status" role="status" aria-live="polite"></p>
+      <button type="submit">Connect</button>
+    </form>
+  </main>
+  <script src="connect.js"></script>
+</body>
+</html>
